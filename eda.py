@@ -1,5 +1,5 @@
 import pandas as pd
-df = pd.read_csv(r"C:\Users\romeo\OneDrive\Desktop\ACADEMICS\OOPS\employee_salary.csv")
+df = pd.read_csv("employee_salary.csv")
 print("task-1\n")
 print("the first 5 columns of the data frame are:\n")
 print(df.head())
