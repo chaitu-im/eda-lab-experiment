@@ -1,0 +1,47 @@
+import pandas as pd
+df = pd.read_csv(r"C:\Users\romeo\OneDrive\Desktop\ACADEMICS\OOPS\employee_salary.csv")
+print("task-1\n")
+print("the first 5 columns of the data frame are:\n")
+print(df.head())
+print("the last 5 columns of the data frame are:\n")
+print(df.tail())
+print("the shape of the data frame is:\n")
+print(df.shape)
+print("the rows of the data frame are:\n")
+print(df.shape[0])
+print("the columns of the data frame are:\n")
+print(df.shape[1])
+print("task-2\n")
+print("the column names of the data frame are:\n")
+print(df.columns)
+print("the data types of the columns are:\n")
+print(df.dtypes)
+print("the data set information of the data frame are:\n")
+print(df.info())
+print("the summary statistics of the data frame are:\n")
+print(df.describe())
+print("task-3\n")
+missing_counts = df.isnull().sum()
+missing_pct = (missing_counts / len(df) * 100).round(2)
+missing_summary = pd.DataFrame({
+    "Missing Count": missing_counts,
+    "Missing %": missing_pct
+})
+missing_summary = missing_summary[missing_summary["Missing Count"] > 0] 
+missing_counts = df.isnull().sum()
+missing_percent = 100 * missing_counts / len(df)
+missing_summary = pd.concat([missing_counts, missing_percent], axis=1)
+missing_summary.columns = ["Missing Count", "Missing Percent"]
+missing_summary = missing_summary[missing_summary["Missing Count"] > 0].sort_values("Missing Count", ascending=False)
+print("\nColumns with missing values:")
+print(missing_summary if not missing_summary.empty else "None")
+print(f"\nTotal missing cells in dataset: {missing_counts.sum()}")
+dup_count = df.duplicated().sum()
+print(f"\nNumber of Duplicate Records: {dup_count}")
+size_before = df.shape[0]
+df_clean = df.drop_duplicates()
+size_after = df_clean.shape[0]
+print(f"Dataset Size Before Cleaning: {size_before}")
+print(f"Dataset Size After Cleaning : {size_after}")
+df_clean.to_csv("employee_salary_cleaned.csv", index=False)
+print("\nCleaned dataset saved as employee_salary_cleaned.csv")
